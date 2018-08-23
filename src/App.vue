@@ -1,6 +1,7 @@
 <template>
-<div>
-  <div class="header">
+  <div>
+    <!-- 头部样式 -->
+    <div class="header">
         <!-- 1.0 导航栏头部 -->
         <div class="head-top">
             <div class="section">
@@ -30,7 +31,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 2.0 导航条 -->
         <div class="head-nav">
             <div class="section">
@@ -79,6 +79,7 @@
             </div>
         </div>
     </div>
+    <!-- 底部样式 -->
     <div class="footer">
                 <div class="section">
                     <div class="foot-nav">
@@ -110,20 +111,46 @@
                     </div>
                 </div>
             </div>
-          </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+// 引入jq
+import $ from "jquery"
 export default {
-  name: "app",
-  components: {
-    HelloWorld
-  }
+  name: "contai"
 };
+$(document).ready(function() {
+  $("#menu2 li a").wrapInner('<span class="out"></span>');
+  $("#menu2 li a").each(function() {
+    $('<span class="over">' + $(this).text() + "</span>").appendTo(this);
+  });
+
+  $("#menu2 li a").hover(
+    function() {
+      $(".out", this)
+        .stop()
+        .animate({ top: "48px" }, 300); // move down - hide
+      $(".over", this)
+        .stop()
+        .animate({ top: "0px" }, 300); // move down - show
+    },
+    function() {
+      $(".out", this)
+        .stop()
+        .animate({ top: "0px" }, 300); // move up - show
+      $(".over", this)
+        .stop()
+        .animate({ top: "-48px" }, 300); // move up - hide
+    }
+  );
+});
 </script>
 
 <style>
-@import url('../src/assets/statics/site/css/style.css');
+@import url("./assets/statics/site/css/style.css");
+@import url("./assets/lib/css/style.css");
+#menu2{
+  background-image: none;
+}
 </style>
