@@ -10,6 +10,7 @@
         <div class="section">
             <div class="wrapper">
                 <div class="wrap-box">
+                  <!-- 商品分类 -->
                     <div class="left-220" style="margin: 0px;">
                         <div class="banner-nav">
                             <ul>
@@ -41,31 +42,17 @@
                     <div class="left-705">
                         <div class="banner-img">
                             <div id="focus-box" class="focus-box">
-                                <ul class="slides">
-                                    <li class="" style="width: 100%;height:100%; float: left; margin-right: -100%; position: relative; opacity: 0; display: block; z-index: 1;">
-                                        <a href="/goods.html">
-                                            <img style="width: 100%;height:100%;" src="http://39.108.135.214:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg" draggable="false">
-                                        </a>
-                                    </li>
-                                    <li style="width: 100%;height:100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;" class="flex-active-slide">
-                                        <a href="/goods.html">
-                                            <img style="width: 100%;height:100%;" src="http://39.108.135.214:8899/upload/201504/20/thumb_201504200314272543.jpg" draggable="false">
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ol class="flex-control-nav flex-control-paging">
-                                    <li>
-                                        <a class="">1</a>
-                                    </li>
-                                    <li>
-                                        <a class="flex-active">2</a>
-                                    </li>
-                                </ol>
+                                <el-carousel indicator-position="outside">
+                                  <el-carousel-item v-for="(item) in sliderlist" :key="item.id">
+                                    <img :src="item.img_url" alt="">
+                                  </el-carousel-item>
+                                </el-carousel>
                             </div>
 
                         </div>
                     </div>
                     <!--/幻灯片-->
+                    <!-- 热卖商品 -->
                     <div class="left-220">
                         <ul class="side-img-list">
                             <li v-for="(item, index) in toplist" :key="item.id">
@@ -469,36 +456,49 @@
 import axios from "axios";
 import moment from "moment";
 export default {
-  name: 'index',
-  data:function(){
+  name: "index",
+  data: function() {
     return {
-      catelist:[],//
-      sliderlist:[],
-      toplist:[]
-    }
+      catelist: [], //
+      sliderlist: [],
+      toplist: []
+    };
   },
   // 生命周期函数
   created() {
-    axios.get("http://47.106.148.205:8899/site/goods/gettopdata/goods")
-    .then((Response)=>{
-      this.catelist=Response.data.message.catelist;
-      this.sliderlist=Response.data.message.sliderlist;
-      this.toplist=Response.data.message.toplist;
+    axios
+      .get("http://47.106.148.205:8899/site/goods/gettopdata/goods")
+      .then(Response => {
+        this.catelist = Response.data.message.catelist;
+        this.sliderlist = Response.data.message.sliderlist;
+        this.toplist = Response.data.message.toplist;
+      });
       
-
-    })
   },
   filters: {
-  capitalize(value) {
-    return  moment(value).format("YYYY年MM月DD日")
+    capitalize(value) {
+      return moment(value).format("YYYY年MM月DD日");
+    }
   }
-}
-}
+};
 </script>
 
 
 <style>
-body{
+body {
   background-color: transparent;
 }
+  .el-carousel__item img {
+    width: 100%;
+    height: 100%;
+
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
 </style>
