@@ -37,9 +37,9 @@
                 <div id="menu2" class="nav-box menuhd">
                     <ul>
                         <li class="index">
-                            <a href="#" class="">
-                                <span class="out" style="top: 0px;">首页</span>
-                            </a>
+                          <router-link to="/index">
+                              <span class="out" style="top: 0px;">首页</span>
+                          </router-link>  
                         </li>
                         <li class="news">
                             <a href="#" class="">
@@ -80,6 +80,7 @@
         </div>
     </div>
     <!-- 底部样式 -->
+    <router-view></router-view>
     <div class="footer">
                 <div class="section">
                     <div class="foot-nav">
@@ -118,7 +119,7 @@
 // 引入jq
 import $ from "jquery"
 export default {
-  name: "contai"
+  name: "container"
 };
 $(document).ready(function() {
   $("#menu2 li a").wrapInner('<span class="out"></span>');
